@@ -6,7 +6,7 @@ import pkgutil
 import Utils
 
 from pathlib import Path
-
+from .ErrorRecalc import ErrorRecalculator
 from settings import get_settings
 
 from .utils import Constants
@@ -58,3 +58,12 @@ class CRASHBASHProcedurePatch(APProcedurePatch, APTokenMixin):
             os.unlink(file_name + ".bin")
         
         super().patch(target)
+
+        #Error Correction Code (ECC) Recalculation
+
+        error_recalculator = ErrorRecalculator(calculate_form_2_edc = False)
+        stats = error_recalculator.recalc(target_file = Path(file_name + ".bin"),
+                                          base_file = get_settings().crashbash_options.rom_file)
+        print(
+            f"{stats.identical_sectors} identical sectors out of {stats.total_sectors()}, {stats.recalc_sectors} sectors recalculated")
+        print(f"{stats.edc_blocks_computed} EDC blocks computed, {stats.ecc_blocks_generated} ECC blocks generated")

@@ -99,7 +99,6 @@ class CRASHBASHWorld(World):
         # could use major refactor lol, lots of redundancy for first go at it that I'll later squish down
 
         for minigame in all_minigames:
-            print(minigame.gameName)
             if minigame.warpRoom == 1 and not minigame.isBoss:
                 trophy_location: TrophyLocation = TrophyLocation(warp_1_region, self.player, minigame)
                 set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[0]), self.player)))

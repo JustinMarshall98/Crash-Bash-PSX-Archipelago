@@ -247,22 +247,25 @@ class CRASHBASHClient(BizHawkClient):
                         new_local_check_locations.add(Constants.VICTORY_LOCATION_ID)
                 if ctx.slot_data[Constants.GAME_OPTIONS_KEY]['bossgoal'] == 1: # Bearminator goal
                     if bosses_to_wins[all_minigames[22]]: # Player has won this challenge
-                        new_victory_check_location = set[(
-                            Constants.VICTORY_LOCATION_ID
-                        )]
-                        new_local_check_locations = new_local_check_locations.union(new_victory_check_location)
+                        #new_victory_check_location = set[(
+                        #    Constants.VICTORY_LOCATION_ID
+                        #)]
+                        #new_local_check_locations = new_local_check_locations.union(new_victory_check_location)
+                        new_local_check_locations.add(Constants.VICTORY_LOCATION_ID)
                 if ctx.slot_data[Constants.GAME_OPTIONS_KEY]['bossgoal'] == 2: # Big Bad Fox goal
                     if bosses_to_wins[all_minigames[9]]: # Player has won this challenge
-                        new_victory_check_location = set[(
-                            Constants.VICTORY_LOCATION_ID
-                        )]
-                        new_local_check_locations = new_local_check_locations.union(new_victory_check_location)
+                        #new_victory_check_location = set[(
+                        #    Constants.VICTORY_LOCATION_ID
+                        #)]
+                        #new_local_check_locations = new_local_check_locations.union(new_victory_check_location)
+                        new_local_check_locations.add(Constants.VICTORY_LOCATION_ID)
                 if ctx.slot_data[Constants.GAME_OPTIONS_KEY]['bossgoal'] == 3: # Oxide Ride goal
                     if bosses_to_wins[all_minigames[31]]: # Player has won this challenge
-                        new_victory_check_location = set[(
-                            Constants.VICTORY_LOCATION_ID
-                        )]
-                        new_local_check_locations = new_local_check_locations.union(new_victory_check_location)
+                        #new_victory_check_location = set[(
+                        #    Constants.VICTORY_LOCATION_ID
+                        #)]
+                        #new_local_check_locations = new_local_check_locations.union(new_victory_check_location)
+                        new_local_check_locations.add(Constants.VICTORY_LOCATION_ID)
 
                 gold_relic_wins: typing.List[bool] = []
                 minigames_to_gold_relics: typing.Dict[Minigame, bool] = {}
