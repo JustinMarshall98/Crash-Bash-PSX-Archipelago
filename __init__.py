@@ -17,6 +17,7 @@ from .locations import TrophyLocation, GemLocation, CrystalLocation, GoldRelicLo
 from .warpunlocks import all_warp_unlocks
 from .items import CRASHBASHItem, create_victory_event, create_item as fabricate_item, item_name_to_item_id
 from .rom import CRASHBASHProcedurePatch
+from .client import CRASHBASHClient
 
 class CRASHBASHSettings(settings.Group):
     class RomFile(settings.UserFilePath):

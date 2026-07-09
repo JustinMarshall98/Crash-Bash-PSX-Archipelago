@@ -129,7 +129,7 @@ lbu r22, 0x0788(r2)
 nop
 nop
 b @TrophyCheckEnd
-nop
+ori r13, r0, 0x0004 # Loop counter that is checked later
 nop
 nop
 nop

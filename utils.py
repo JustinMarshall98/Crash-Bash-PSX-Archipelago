@@ -12,6 +12,8 @@ class Constants:
     VICTORY_LOCATION_NAME: str = "Crash Bashed"
     VICTORY_LOCATION_ID: int = 0x0C
 
+    ADVENTURE_MODE_VERIFICATION_OFFSET: int = 0x5A671
+
     WARP_2_OFFSET: int = 0x5A781
     WARP_3_OFFSET: int = 0x5A793
     WARP_4_OFFSET: int = 0x5A786
