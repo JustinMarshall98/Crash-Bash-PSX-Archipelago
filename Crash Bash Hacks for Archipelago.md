@@ -3,7 +3,8 @@ Hacks Authored by Jumza (unless otherwise stated)
 
 Name: Switch between non-consecutive warp room selections
 Description: In the base game if you have only (for example) warp room access to 1,2,4, you could not move your selected
-warp room between 2 and 4 more than once. This enables this behaviour.
+warp room between 2 and 4 more than once. This enables this behaviour by having right arrow search for next available warp,
+left arrow resets to 0 and then searches up.
 In addition, I am moving all warp checks over by 1 to move their data points off of where boss completion locations are.
 New Warp Room Unlock Memory Locations - (Access to 1 is always on by default right now)
 0x5A781 - Warp Room 2 Unlocked
@@ -12,6 +13,10 @@ New Warp Room Unlock Memory Locations - (Access to 1 is always on by default rig
 0x5A79C - Warp Room 5 Unlocked
 
 Additional implementation note: Uses space freed up in the New Locations for Trophy / Gem / Crystal / Gold Relic Amounts (Menu Counts) hack (the ending nops, after the branch)
+
+Offset (ROM): 0x3F20560
+Offset (RAM): 0xB6C2C
+or r2, r0, r0
 
 Offset (ROM): 0x504DF88
 j 0x800814F0
@@ -156,3 +161,80 @@ AUTHOR: BadHabit (thank you for posting this online for me to find!)
 
 Offset (ROM): 0x2F696
 Change 40 to 00 to remove LibCrypt check
+
+
+Name: Text Changes
+Description: I've made several modifications to text in the game to indicate new or updated requirements.
+These are all hardcoded now but if these requirements are ever randomized at patch time they may not be mentioned here.
+
+Warp Rooms can now be accessed without beating Papu Pummel, update warp text to reflect that
+Offset (ROM): 0x3F1C6A4
+Text:
+YOU MUST DEFEAT PAPU PAPU BEFORE
+YOU CAN GO TO THE NEXT WARP ROOM
+New Text:
+PRESS LEFT - RIGHT TO SELECT WARP ROOM
+ PRESS ü BUTTON TO ENTER
+Hex:
+50 52 45 53 53 20 4C 45 46 54 20 2D 20 52 49 47 48 54 20 54 4F 20 53 45 4C 45 43 54 20 57 41 52 50 20 52 4F 4F 4D 0a 20 50 52 45 53 53 20 FC 20 42 55 54 54 4F 4E 20 54 4F 20 45 4E 54 45 52 00 00
+
+Note that Splash Dash actually requires Bearminator completion as well
+Offset (ROM): 0x3F1C5B8
+Text:
+YOU NEED 17 GOLD RELICS
+TO OPEN SPLASH DASH�
+New Text:
+REQUIRES: 17 GOLD RELICS,
+BEAT BEARMINATOR�
+Hex:
+52 45 51 55 49 52 45 53 3A 20 31 37 20 47 4F 4C 44 20 52 45 4C 49 43 53 2C 0D 42 45 41 54 20 42 45 41 52 4D 49 4E 41 54 4F 52 0D 00
+
+Note that Dante's Dash actually requires Bearminator completion as well
+Offset (ROM): 0x3F1C58C
+Text:
+YOU NEED 27 TROPHIES
+TO OPEN DANTE'S DASH�
+New Text:
+REQUIRES: 27 TROPHIES, BEAT BEARMINATOR�
+Hex:
+52 45 51 55 49 52 45 53 3A 20 31 37 20 47 4F 4C 44 20 52 45 4C 49 43 53 2C 0D 42 45 41 54 20 42 45 41 52 4D 49 4E 41 54 4F 52 0D 00
+
+Note that Dragon Drop actually requires Oxide Ride completion as well
+Offset (ROM): 0x3F1C510
+Text:
+YOU NEED 19 CRYSTALS
+TO OPEN DRAGON DROP�
+New Text:
+REQUIRES: 19 CRYSTALS, BEAT NITROS OXIDE�
+Hex:
+52 45 51 55 49 52 45 53 3A 20 31 39 20 43 52 59 53 54 41 4C 53 2C 0A 42 45 41 54 20 4E 49 54 52 4F 53 20 4F 58 49 44 45 00
+
+Note that Mallet Mash actually requires Oxide Ride completion as well
+Offset (ROM): 0x3F1C53C
+Text:
+YOU NEED 21 GOLD RELICS
+TO OPEN MALLET MASH�
+New Text:
+REQUIRES: 21 GOLD RELICS, BEAT NITROS OXIDE�
+Hex:
+52 45 51 55 49 52 45 53 3A 20 32 31 20 47 4F 4C 44 20 52 45 4C 49 43 53 2C 0A 42 45 41 54 20 4E 49 54 52 4F 53 20 4F 58 49 44 45 00
+
+Note that Keg Kaboom actually requires Oxide Ride completion as well. (I couldn't fit the comma in this one)
+Offset (ROM): 0x3F1C568
+Text:
+YOU NEED 25 GEMS
+TO OPEN KEG KABOOM�
+New Text:
+REQUIRES: 25 GEMS BEAT NITROS OXIDE�
+Hex:
+52 45 51 55 49 52 45 53 3A 20 32 35 20 47 45 4D 53 0A 42 45 41 54 20 4E 49 54 52 4F 53 20 4F 58 49 44 45 00
+
+Note that Swamp Fox actually requires Oxide Ride completion as well (I couldn't fit the comma here either)
+Offset (ROM): 0x3F1C5E4
+Text:
+YOU NEED 23 CRYSTALS
+TO OPEN SWAMP FOX�
+New Text:
+REQUIRES: 23 CRYSTALS BEAT NITROS OXIDE�
+Hex:
+52 45 51 55 49 52 45 53 3A 20 32 33 20 43 52 59 53 54 41 4C 53 0A 42 45 41 54 20 4E 49 54 52 4F 53 20 4F 58 49 44 45 00
