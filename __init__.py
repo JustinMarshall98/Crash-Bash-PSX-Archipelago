@@ -96,6 +96,8 @@ class CRASHBASHWorld(World):
 
         # Add minigame locations for their respective Warp Rooms
 
+        # could use major refactor lol, lots of redundancy for first go at it that I'll later squish down
+
         for minigame in all_minigames:
             print(minigame.gameName)
             if minigame.warpRoom == 1 and not minigame.isBoss:
@@ -134,21 +136,42 @@ class CRASHBASHWorld(World):
                     
             elif minigame.warpRoom == 2 and not minigame.isBoss:
                 trophy_location: TrophyLocation = TrophyLocation(warp_2_region, self.player, minigame)
-                set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[1]), self.player)))
+                if minigame.gameName == "Desert Fox": # Desert Fox also has Papu Pummel requirements (since Papu Pummel must be completed to play it)
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                else:
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[1]), self.player)))
                 warp_2_region.locations.append(trophy_location)
 
                 gem_location: GemLocation = GemLocation(warp_2_region, self.player, minigame)
-                set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[1]), self.player)))
+                if minigame.gameName == "Desert Fox":
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                else:
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[1]), self.player)))
                 warp_2_region.locations.append(gem_location)
 
                 crystal_location: CrystalLocation = CrystalLocation(warp_2_region, self.player, minigame)
-                set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[1]), self.player)))
+                if minigame.gameName == "Desert Fox":
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                else:
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[1]), self.player)))
                 warp_2_region.locations.append(crystal_location)
 
                 if self.options.includegold:
                     gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_2_region, self.player, minigame)
-                    set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[1]), self.player)
-                                                                                    and state.has(str(all_warp_unlocks[3]), self.player)))
+                    if minigame.gameName == "Desert Fox":
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[1]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                                        and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                    else:
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[1]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[3]), self.player)))
                     warp_2_region.locations.append(gold_relic_location)
 
             elif minigame.warpRoom == 2 and minigame.isBoss:
@@ -171,21 +194,67 @@ class CRASHBASHWorld(World):
                     victory_location.place_locked_item(create_victory_event(self.player))
             elif minigame.warpRoom == 3 and not minigame.isBoss:
                 trophy_location: TrophyLocation = TrophyLocation(warp_3_region, self.player, minigame)
-                set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[2]), self.player)))
+                if minigame.gameName == "Metal Fox": # Metal Fox also has Papu Pummel requirements (since Papu Pummel must be completed to play it)
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                elif minigame.gameName == "Dot Dash": # Dot Dash also has Bearminator requirements (since Bearminator must be completed to play it)
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
+                else:
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[2]), self.player)))
                 warp_3_region.locations.append(trophy_location)
 
                 gem_location: GemLocation = GemLocation(warp_3_region, self.player, minigame)
-                set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[2]), self.player)))
+                if minigame.gameName == "Metal Fox":
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                elif minigame.gameName == "Dot Dash":
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
+                else:
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[2]), self.player)))
                 warp_3_region.locations.append(gem_location)
 
                 crystal_location: CrystalLocation = CrystalLocation(warp_3_region, self.player, minigame)
-                set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[2]), self.player)))
+                if minigame.gameName == "Metal Fox":
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                elif minigame.gameName == "Dot Dash":
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
+                else:
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[2]), self.player)))
                 warp_3_region.locations.append(crystal_location)
 
                 if self.options.includegold:
                     gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_3_region, self.player, minigame)
-                    set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[2]), self.player)
-                                                                                    and state.has(str(all_warp_unlocks[3]), self.player)))
+                    if minigame.gameName == "Metal Fox":
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                                        and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                    elif minigame.gameName == "Dot Dash":
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                                        and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                                        and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                                        and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
+                    else:
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[3]), self.player)))
                     warp_3_region.locations.append(gold_relic_location)
 
             elif minigame.warpRoom == 3 and minigame.isBoss:
@@ -208,20 +277,88 @@ class CRASHBASHWorld(World):
                     victory_location.place_locked_item(create_victory_event(self.player))
             elif minigame.warpRoom == 4 and not minigame.isBoss:
                 trophy_location: TrophyLocation = TrophyLocation(warp_4_region, self.player, minigame)
-                set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)))
+                if minigame.gameName == "Jungle Fox": # Jungle Fox also has Papu Pummel requirements (since Papu Pummel must be completed to play it)
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                elif minigame.gameName == "Toxic Dash": # Toxic Dash also has Bearminator requirements (since Bearminator must be completed to play it)
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
+                elif minigame.gameName == "Ring Ding": # Ring Ding also has Big Bad Fox requirements (since Big Bad Fox must be completed to play it)
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 15)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 10)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 7)))
+                else:
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)))
                 warp_4_region.locations.append(trophy_location)
 
                 gem_location: GemLocation = GemLocation(warp_4_region, self.player, minigame)
-                set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[3]), self.player)))
+                if minigame.gameName == "Jungle Fox":
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                elif minigame.gameName == "Toxic Dash":
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
+                elif minigame.gameName == "Ring Ding":
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 15)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 10)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 7)))
+                else:
+                    set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[3]), self.player)))
                 warp_4_region.locations.append(gem_location)
 
                 crystal_location: CrystalLocation = CrystalLocation(warp_4_region, self.player, minigame)
-                set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[3]), self.player)))
+                if minigame.gameName == "Jungle Fox":
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                elif minigame.gameName == "Toxic Dash":
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
+                elif minigame.gameName == "Ring Ding":
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                    and state.has(str(all_warp_unlocks[2]), self.player)
+                                                                    and state.has(Constants.TROPHY_ITEM_NAME, self.player, 15)
+                                                                    and state.has(Constants.GEM_ITEM_NAME, self.player, 10)
+                                                                    and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 7)))
+                else:
+                    set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[3]), self.player)))
                 warp_4_region.locations.append(crystal_location)
 
                 if self.options.includegold:
                     gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_4_region, self.player, minigame)
-                    set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[3]), self.player)))
+                    if minigame.gameName == "Jungle Fox":
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[0]), self.player)
+                                                                                        and state.has(Constants.TROPHY_ITEM_NAME, self.player, 4)))
+                    elif minigame.gameName == "Toxic Dash":
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                                        and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                                        and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                                        and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
+                    elif minigame.gameName == "Ring Ding":
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                        and state.has(str(all_warp_unlocks[2]), self.player)
+                                                                                        and state.has(Constants.TROPHY_ITEM_NAME, self.player, 15)
+                                                                                        and state.has(Constants.GEM_ITEM_NAME, self.player, 10)
+                                                                                        and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 7)))
+                    else:
+                        set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[3]), self.player)))
                     warp_4_region.locations.append(gold_relic_location)
 
             elif minigame.warpRoom == 4 and minigame.isBoss:
@@ -245,98 +382,155 @@ class CRASHBASHWorld(World):
             else:
                 # Warp 5 Minigames all have extra requirements and no boss level
                 # Do not include Splash Dash, Dante's Dash or Mallet Mash locations unless gold relic locations are on
-                if minigame.gameName == "Splash Dash" and self.options.includegold:
+                if minigame.gameName == "Splash Dash" and self.options.includegold: # Splash Dash also has Bearminator requirements (since Bearminator must be completed to play it)
                     trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
                     set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)))
+                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)
+                                                                            and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
                     warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Dante's Dash" and self.options.includegold:
+                elif minigame.gameName == "Dante's Dash" and self.options.includegold: # Dante's Dash also has Bearminator requirements (since Bearminator must be completed to play it)
                     trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
                     set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)))
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)
+                                                                            and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
                     warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Mallet Mash" and self.options.includegold:
+                elif minigame.gameName == "Mallet Mash" and self.options.includegold: # Mallet Mash also has Oxide Ride requirements (since Oxide Ride must be completed to play it)
                     trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
                     set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)))
+                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 12)))
                     warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Dragon Drop":
+                elif minigame.gameName == "Dragon Drop": #  Dragon Drop also has Oxide Ride requirements (since Oxide Ride must be completed to play it)
                     trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
                     set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)))
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)))
                     warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Swamp Fox":
+                elif minigame.gameName == "Swamp Fox": # Swamp Fox also has Oxide Ride requirements (since Oxide Ride must be completed to play it)
                     trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
                     set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)))
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)))
                     warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Keg Kaboom":
+                elif minigame.gameName == "Keg Kaboom": # Keg Kaboom also has Oxide Ride requirements (since Oxide Ride must be completed to play it)
                     trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
                     set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 25)))
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 25)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 12)))
                     warp_5_region.locations.append(trophy_location)
                 
 
                 if minigame.gameName == "Splash Dash" and self.options.includegold:
                     gem_location: GemLocation = GemLocation(warp_5_region, self.player, minigame)
                     set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)))
+                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)
+                                                                            and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
                     warp_5_region.locations.append(gem_location)
                 elif minigame.gameName == "Dante's Dash" and self.options.includegold:
                     gem_location: GemLocation = GemLocation(warp_5_region, self.player, minigame)
                     set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)))
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)
+                                                                            and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
                     warp_5_region.locations.append(gem_location)
                 elif minigame.gameName == "Mallet Mash" and self.options.includegold:
                     gem_location: GemLocation = GemLocation(warp_5_region, self.player, minigame)
                     set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)))
+                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 12)))
                     warp_5_region.locations.append(gem_location)
                 elif minigame.gameName == "Dragon Drop":
                     gem_location: GemLocation = GemLocation(warp_5_region, self.player, minigame)
                     set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)))
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)))
                     warp_5_region.locations.append(gem_location)
                 elif minigame.gameName == "Swamp Fox":
                     gem_location: GemLocation = GemLocation(warp_5_region, self.player, minigame)
                     set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)))
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)))
                     warp_5_region.locations.append(gem_location)
                 elif minigame.gameName == "Keg Kaboom":
                     gem_location: GemLocation = GemLocation(warp_5_region, self.player, minigame)
                     set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 25)))
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 25)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 12)))
                     warp_5_region.locations.append(gem_location)
 
                 if minigame.gameName == "Splash Dash" and self.options.includegold:
                     crystal_location: CrystalLocation = CrystalLocation(warp_5_region, self.player, minigame)
                     set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)))
+                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)
+                                                                            and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
                     warp_5_region.locations.append(crystal_location)
                 elif minigame.gameName == "Dante's Dash" and self.options.includegold:
                     crystal_location: CrystalLocation = CrystalLocation(warp_5_region, self.player, minigame)
                     set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)))
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)
+                                                                            and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)))
                     warp_5_region.locations.append(crystal_location)
                 elif minigame.gameName == "Mallet Mash" and self.options.includegold:
                     crystal_location: CrystalLocation = CrystalLocation(warp_5_region, self.player, minigame)
                     set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)))
+                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 12)))
                     warp_5_region.locations.append(crystal_location)
                 elif minigame.gameName == "Dragon Drop":
                     crystal_location: CrystalLocation = CrystalLocation(warp_5_region, self.player, minigame)
                     set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)))
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)))
                     warp_5_region.locations.append(crystal_location)
                 elif minigame.gameName == "Swamp Fox":
                     crystal_location: CrystalLocation = CrystalLocation(warp_5_region, self.player, minigame)
                     set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)))
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 15)))
                     warp_5_region.locations.append(crystal_location)
                 elif minigame.gameName == "Keg Kaboom":
                     crystal_location: CrystalLocation = CrystalLocation(warp_5_region, self.player, minigame)
                     set_rule(crystal_location, (lambda state, t=crystal_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 25)))
+                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 25)
+                                                                            and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 12)))
                     warp_5_region.locations.append(crystal_location)
                 
 
@@ -345,37 +539,53 @@ class CRASHBASHWorld(World):
                         gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_5_region, self.player, minigame)
                         set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[4]), self.player)
                                                                                 and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)
+                                                                                and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                                and state.has(Constants.TROPHY_ITEM_NAME, self.player, 9)
+                                                                                and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                                and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)
                                                                                 and state.has(str(all_warp_unlocks[3]), self.player)))
                         warp_5_region.locations.append(gold_relic_location)
                     elif minigame.gameName == "Dante's Dash" and self.options.includegold:
                         gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_5_region, self.player, minigame)
                         set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[4]), self.player)
                                                                                 and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)
+                                                                                and state.has(str(all_warp_unlocks[1]), self.player)
+                                                                                and state.has(Constants.GEM_ITEM_NAME, self.player, 6)
+                                                                                and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 3)
                                                                                 and state.has(str(all_warp_unlocks[3]), self.player)))
                         warp_5_region.locations.append(gold_relic_location)
                     elif minigame.gameName == "Mallet Mash" and self.options.includegold:
                         gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_5_region, self.player, minigame)
                         set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[4]), self.player)
                                                                                 and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)
+                                                                                and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                                and state.has(Constants.GEM_ITEM_NAME, self.player, 15)
+                                                                                and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 12)
                                                                                 and state.has(str(all_warp_unlocks[3]), self.player)))
                         warp_5_region.locations.append(gold_relic_location)
                     elif minigame.gameName == "Dragon Drop":
                         gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_5_region, self.player, minigame)
                         set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[4]), self.player)
                                                                                 and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)
-                                                                                and state.has(str(all_warp_unlocks[3]), self.player)))
+                                                                                and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                                and state.has(Constants.GEM_ITEM_NAME, self.player, 15)))
                         warp_5_region.locations.append(gold_relic_location)
                     elif minigame.gameName == "Swamp Fox":
                         gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_5_region, self.player, minigame)
                         set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[4]), self.player)
                                                                                 and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)
-                                                                                and state.has(str(all_warp_unlocks[3]), self.player)))
+                                                                                and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                                and state.has(Constants.GEM_ITEM_NAME, self.player, 15)))
                         warp_5_region.locations.append(gold_relic_location)
                     elif minigame.gameName == "Keg Kaboom":
                         gold_relic_location: GoldRelicLocation = GoldRelicLocation(warp_5_region, self.player, minigame)
                         set_rule(gold_relic_location, (lambda state, t=gold_relic_location: state.has(str(all_warp_unlocks[4]), self.player)
                                                                                 and state.has(Constants.GEM_ITEM_NAME, self.player, 25)
-                                                                                and state.has(str(all_warp_unlocks[3]), self.player)))
+                                                                                and state.has(str(all_warp_unlocks[3]), self.player)
+                                                                                and state.has(Constants.TROPHY_ITEM_NAME, self.player, 22)
+                                                                                and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 12)))
                         warp_5_region.locations.append(gold_relic_location)
                     
 
