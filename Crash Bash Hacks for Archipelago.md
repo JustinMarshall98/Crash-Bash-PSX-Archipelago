@@ -178,63 +178,24 @@ PRESS LEFT - RIGHT TO SELECT WARP ROOM
 Hex:
 50 52 45 53 53 20 4C 45 46 54 20 2D 20 52 49 47 48 54 20 54 4F 20 53 45 4C 45 43 54 20 57 41 52 50 20 52 4F 4F 4D 0a 20 50 52 45 53 53 20 FC 20 42 55 54 54 4F 4E 20 54 4F 20 45 4E 54 45 52 00 00
 
-Note that Splash Dash actually requires Bearminator completion as well
+Note that Splash Dash actually requires (Bearminator completion in vanilla) Warp 3 Item in AP as well
 Offset (ROM): 0x3F1C5B8
 Text:
 YOU NEED 17 GOLD RELICS
 TO OPEN SPLASH DASH�
 New Text:
 REQUIRES: 17 GOLD RELICS,
-BEAT BEARMINATOR�
+OBTAIN WARP 3�
 Hex:
-52 45 51 55 49 52 45 53 3A 20 31 37 20 47 4F 4C 44 20 52 45 4C 49 43 53 2C 0D 42 45 41 54 20 42 45 41 52 4D 49 4E 41 54 4F 52 0D 00
+52 45 51 55 49 52 45 53 3A 20 31 37 20 47 4F 4C 44 20 52 45 4C 49 43 53 2C 0A 4F 42 54 41 49 4E 20 57 41 52 50 20 33 00
 
-Note that Dante's Dash actually requires Bearminator completion as well
+Note that Dante's Dash actually requires (Bearminator completion in vanilla) Warp 3 Item in AP as well
 Offset (ROM): 0x3F1C58C
 Text:
 YOU NEED 27 TROPHIES
 TO OPEN DANTE'S DASH�
 New Text:
-REQUIRES: 27 TROPHIES, BEAT BEARMINATOR�
+REQUIRES: 27 TROPHIES,
+OBTAIN WARP 3�
 Hex:
-52 45 51 55 49 52 45 53 3A 20 31 37 20 47 4F 4C 44 20 52 45 4C 49 43 53 2C 0D 42 45 41 54 20 42 45 41 52 4D 49 4E 41 54 4F 52 0D 00
-
-Note that Dragon Drop actually requires Oxide Ride completion as well
-Offset (ROM): 0x3F1C510
-Text:
-YOU NEED 19 CRYSTALS
-TO OPEN DRAGON DROP�
-New Text:
-REQUIRES: 19 CRYSTALS, BEAT NITROS OXIDE�
-Hex:
-52 45 51 55 49 52 45 53 3A 20 31 39 20 43 52 59 53 54 41 4C 53 2C 0A 42 45 41 54 20 4E 49 54 52 4F 53 20 4F 58 49 44 45 00
-
-Note that Mallet Mash actually requires Oxide Ride completion as well
-Offset (ROM): 0x3F1C53C
-Text:
-YOU NEED 21 GOLD RELICS
-TO OPEN MALLET MASH�
-New Text:
-REQUIRES: 21 GOLD RELICS, BEAT NITROS OXIDE�
-Hex:
-52 45 51 55 49 52 45 53 3A 20 32 31 20 47 4F 4C 44 20 52 45 4C 49 43 53 2C 0A 42 45 41 54 20 4E 49 54 52 4F 53 20 4F 58 49 44 45 00
-
-Note that Keg Kaboom actually requires Oxide Ride completion as well. (I couldn't fit the comma in this one)
-Offset (ROM): 0x3F1C568
-Text:
-YOU NEED 25 GEMS
-TO OPEN KEG KABOOM�
-New Text:
-REQUIRES: 25 GEMS BEAT NITROS OXIDE�
-Hex:
-52 45 51 55 49 52 45 53 3A 20 32 35 20 47 45 4D 53 0A 42 45 41 54 20 4E 49 54 52 4F 53 20 4F 58 49 44 45 00
-
-Note that Swamp Fox actually requires Oxide Ride completion as well (I couldn't fit the comma here either)
-Offset (ROM): 0x3F1C5E4
-Text:
-YOU NEED 23 CRYSTALS
-TO OPEN SWAMP FOX�
-New Text:
-REQUIRES: 23 CRYSTALS BEAT NITROS OXIDE�
-Hex:
-52 45 51 55 49 52 45 53 3A 20 32 33 20 43 52 59 53 54 41 4C 53 0A 42 45 41 54 20 4E 49 54 52 4F 53 20 4F 58 49 44 45 00
+52 45 51 55 49 52 45 53 3A 20 32 37 20 54 52 4F 50 48 49 45 53 2C 0A 4F 42 54 41 49 4E 20 57 41 52 50 20 33 00
