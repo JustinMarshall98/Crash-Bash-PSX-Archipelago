@@ -62,3 +62,4 @@ Toxic Dash - Requires the Warp Room 3 Unlock item
 3. Gold Relics and Gold Relic challenges will not appear in your pause menu or as options to face in the minigames until
 you have entered Warp Room 4 (Forest) at least once. Logic accounts for this.
 4. As noted in the yaml, the Platinum Relics option is currently always off even if you try and turn it on.
+5. Entering Warp Room 5 for the first time will run the credits sequence once per save file. You can fast forward through it and continue as normal after!
