@@ -18,6 +18,7 @@ from .warpunlocks import all_warp_unlocks
 from .items import CRASHBASHItem, create_victory_event, create_item as fabricate_item, item_name_to_item_id
 from .rom import CRASHBASHProcedurePatch
 from .client import CRASHBASHClient
+from .data import location_groups
 
 class CRASHBASHSettings(settings.Group):
     class RomFile(settings.UserFilePath):
@@ -53,7 +54,7 @@ class CRASHBASHWorld(World):
     web = CRASHBASHWeb()
     settings: typing.ClassVar[CRASHBASHSettings]
 
-    #location_name_groups = location_groups
+    location_name_groups = location_groups
 
     location_name_to_id = location_map
     item_name_to_id = item_name_to_item_id
