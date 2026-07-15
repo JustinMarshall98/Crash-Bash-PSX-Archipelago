@@ -50,16 +50,3 @@ top text field of the client and click Connect.
 
 You should now be able to receive and send items. You'll need to do these steps every time you want to reconnect. It is
 perfectly safe to make progress offline; everything will re-sync when you reconnect.
-
-## Notes and Limitations
-
-1. Items are all remote, meaning you won't receive anything for completing a challenge until you connect or reconnect
-to the client. It is still safe to make progress in the game while disconnected.
-2. There are some minigame requirements that are not stated in game, the option to play the games just won't appear.
-I will list them here:
-Jungle Fox / Metal Fox - Requires the Warp Room 2 Unlock item
-Toxic Dash - Requires the Warp Room 3 Unlock item
-3. Gold Relics and Gold Relic challenges will not appear in your pause menu or as options to face in the minigames until
-you have entered Warp Room 4 (Forest) at least once. Logic accounts for this.
-4. As noted in the yaml, the Platinum Relics option is currently always off even if you try and turn it on.
-5. Entering Warp Room 5 for the first time will run the credits sequence once per save file. You can fast forward through it and continue as normal after!
