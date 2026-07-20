@@ -55,4 +55,10 @@ class CRASHBASHOptions(PerGameCommonOptions):
     includeplat: IncludePlatinumRelics
       
     def serialize(self) -> typing.Dict[str, int]:
-        return {field.name: getattr(self, field.name).value for field in dataclasses.fields(self)}
+        return_dict: typing.Dict[str, int] = {}
+        for field in dataclasses.fields(self):
+            if field.name != "plando_items":
+                return_dict[field.name] = getattr(self, field.name).value
+        return return_dict
+    #def serialize(self) -> typing.Dict[str, int]:
+    #    return {field.name: getattr(self, field.name).value for field in dataclasses.fields(self)}
