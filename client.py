@@ -171,8 +171,10 @@ class CRASHBASHClient(BizHawkClient):
 
 
     async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
-        if ctx.slot_data is not None:
-
+        if ctx.slot_data is None:
+            return
+        
+        try:
             # Goal check
             if not ctx.finished_game and any((item.item == Constants.VICTORY_ITEM_ID) for item in ctx.items_received):
                 await ctx.send_msgs([{
@@ -334,3 +336,6 @@ class CRASHBASHClient(BizHawkClient):
 
                 await self.update_reward_amounts(ctx, trophy_count, gem_count, crystal_count, gold_relic_count, plat_relic_count)
                 await self.update_warp_unlocks(ctx, warp_2_unlock, warp_3_unlock, warp_4_unlock, warp_5_unlock)
+        except bizhawk.RequestFailedError:
+            # The connector didn't respond, exit the handler then return to the main loop to reconnect
+            pass
