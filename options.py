@@ -1,7 +1,7 @@
 import typing
 import dataclasses
 
-from Options import Range, Choice, PerGameCommonOptions, Toggle as DefaultOffToggle
+from Options import Range, Choice, PerGameCommonOptions, Toggle as DefaultOffToggle, DefaultOnToggle
 from dataclasses import dataclass
 
 class BossGoal(Choice):
@@ -21,11 +21,13 @@ class TrophyRounds(Range):
     """
     How many rounds you must win to beat a Trophy Challenge.
     In the base game, this number is 3.
+    Each trophy round you win awards a check. Adding more locations
+    will allow more minigame buff items to be generated for your world.
     """
     display_name = "Trophy Rounds"
     range_start = 1
-    range_end = 5
-    default = 3
+    range_end = 3
+    default = 1
 
 class IncludeGoldRelics(DefaultOffToggle):
     """
@@ -38,13 +40,18 @@ class IncludeGoldRelics(DefaultOffToggle):
 
 class IncludePlatinumRelics(DefaultOffToggle):
     """
-    PLEASE NOTE this option is not yet implemented.
-    Activating this option has no effect on the game currently.
-
     Platinum Relic challenges will become locations.
-    Platinum Relics will be shuffled into the multiworld.
+    These locations will allow more minigame buff items to generate for your world
+    as the platinum relic items are currently useless and are not included.
     """
     display_name = "Include Platinum Relics"
+
+class IncludeTraps(DefaultOffToggle):
+    """
+    Enables a small number of character swap traps to generate if there is location space.
+    For more information, check out the Buffs and Traps doc.
+    """
+    display_name = "Include Traps"
     
 
 @dataclass
@@ -53,6 +60,7 @@ class CRASHBASHOptions(PerGameCommonOptions):
     trophyrounds: TrophyRounds
     includegold: IncludeGoldRelics
     includeplat: IncludePlatinumRelics
+    includetrap: IncludeTraps
       
     def serialize(self) -> typing.Dict[str, int]:
         return_dict: typing.Dict[str, int] = {}
