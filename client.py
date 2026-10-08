@@ -199,8 +199,19 @@ class CRASHBASHClient(BizHawkClient):
 
                 #new_trophy_check_locations = set([
                 new_local_check_locations: typing.Set[int] = set([
-                    get_location_id_for_trophy(key) for key, value in minigames_to_trophies.items() if value
+                    get_location_id_for_trophy(key, 1) for key, value in minigames_to_trophies.items() if value
                 ])
+
+                if ctx.slot_data[Constants.GAME_OPTIONS_KEY]['trophyrounds'] > 1:
+                    round2_check_locations = set([
+                        get_location_id_for_trophy(key, 2) for key, value in minigames_to_trophies.items() if value
+                    ])
+                    new_local_check_locations = new_local_check_locations.union(round2_check_locations)
+                if ctx.slot_data[Constants.GAME_OPTIONS_KEY]['trophyrounds'] > 2:
+                    round3_check_locations = set([
+                        get_location_id_for_trophy(key, 3) for key, value in minigames_to_trophies.items() if value
+                    ])
+                    new_local_check_locations = new_local_check_locations.union(round3_check_locations)
 
                 #new_local_check_locations = new_local_check_locations.union(new_trophy_check_locations)
 

@@ -101,9 +101,10 @@ class CRASHBASHWorld(World):
 
         for minigame in all_minigames:
             if minigame.warpRoom == 1 and not minigame.isBoss:
-                trophy_location: TrophyLocation = TrophyLocation(warp_1_region, self.player, minigame)
-                set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[0]), self.player)))
-                warp_1_region.locations.append(trophy_location)
+                for round in range(self.options.trophyrounds.value):
+                    trophy_location: TrophyLocation = TrophyLocation(warp_1_region, self.player, minigame, round + 1)
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[0]), self.player)))
+                    warp_1_region.locations.append(trophy_location)
 
                 gem_location: GemLocation = GemLocation(warp_1_region, self.player, minigame)
                 set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[0]), self.player)))
@@ -135,9 +136,10 @@ class CRASHBASHWorld(World):
                     victory_location.place_locked_item(create_victory_event(self.player))
                     
             elif minigame.warpRoom == 2 and not minigame.isBoss:
-                trophy_location: TrophyLocation = TrophyLocation(warp_2_region, self.player, minigame)
-                set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[1]), self.player)))
-                warp_2_region.locations.append(trophy_location)
+                for round in range(self.options.trophyrounds.value):
+                    trophy_location: TrophyLocation = TrophyLocation(warp_2_region, self.player, minigame, round + 1)
+                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[1]), self.player)))
+                    warp_2_region.locations.append(trophy_location)
 
                 gem_location: GemLocation = GemLocation(warp_2_region, self.player, minigame)
                 set_rule(gem_location, (lambda state, t=gem_location: state.has(str(all_warp_unlocks[1]), self.player)))
@@ -172,13 +174,14 @@ class CRASHBASHWorld(World):
                     warp_2_region.locations.append(victory_location)
                     victory_location.place_locked_item(create_victory_event(self.player))
             elif minigame.warpRoom == 3 and not minigame.isBoss:
-                trophy_location: TrophyLocation = TrophyLocation(warp_3_region, self.player, minigame)
-                if minigame.gameName == "Metal Fox": # Metal Fox also has receiving Warp Room 2 as a requirement
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[2]), self.player)
-                                                                    and state.has(str(all_warp_unlocks[1]), self.player)))
-                else:
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[2]), self.player)))
-                warp_3_region.locations.append(trophy_location)
+                for round in range(self.options.trophyrounds.value):
+                    trophy_location: TrophyLocation = TrophyLocation(warp_3_region, self.player, minigame, round + 1)
+                    if minigame.gameName == "Metal Fox": # Metal Fox also has receiving Warp Room 2 as a requirement
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[2]), self.player)
+                                                                        and state.has(str(all_warp_unlocks[1]), self.player)))
+                    else:
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[2]), self.player)))
+                    warp_3_region.locations.append(trophy_location)
 
                 gem_location: GemLocation = GemLocation(warp_3_region, self.player, minigame)
                 if minigame.gameName == "Metal Fox":
@@ -226,16 +229,17 @@ class CRASHBASHWorld(World):
                     warp_3_region.locations.append(victory_location)
                     victory_location.place_locked_item(create_victory_event(self.player))
             elif minigame.warpRoom == 4 and not minigame.isBoss:
-                trophy_location: TrophyLocation = TrophyLocation(warp_4_region, self.player, minigame)
-                if minigame.gameName == "Jungle Fox": # Jungle Fox also has receiving Warp Room 2 as a requirement
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)
-                                                                    and state.has(str(all_warp_unlocks[1]), self.player)))
-                elif minigame.gameName == "Toxic Dash": # Toxic Dash also has receiving Warp Room 3 as a requirement
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)
-                                                                    and state.has(str(all_warp_unlocks[2]), self.player)))
-                else:
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)))
-                warp_4_region.locations.append(trophy_location)
+                for round in range(self.options.trophyrounds.value):
+                    trophy_location: TrophyLocation = TrophyLocation(warp_4_region, self.player, minigame, round + 1)
+                    if minigame.gameName == "Jungle Fox": # Jungle Fox also has receiving Warp Room 2 as a requirement
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                        and state.has(str(all_warp_unlocks[1]), self.player)))
+                    elif minigame.gameName == "Toxic Dash": # Toxic Dash also has receiving Warp Room 3 as a requirement
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)
+                                                                        and state.has(str(all_warp_unlocks[2]), self.player)))
+                    else:
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[3]), self.player)))
+                    warp_4_region.locations.append(trophy_location)
 
                 gem_location: GemLocation = GemLocation(warp_4_region, self.player, minigame)
                 if minigame.gameName == "Jungle Fox":
@@ -292,38 +296,39 @@ class CRASHBASHWorld(World):
             else:
                 # Warp 5 Minigames all have extra requirements and no boss level
                 # Do not include Splash Dash, Dante's Dash or Mallet Mash locations unless gold relic locations are on
-                if minigame.gameName == "Splash Dash" and self.options.includegold: # Splash Dash also has receiving Warp Room 3 as a requirement
-                    trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)
-                                                                            and state.has(str(all_warp_unlocks[2]), self.player)))
-                    warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Dante's Dash" and self.options.includegold: # Dante's Dash also has receiving Warp Room 3 as a requirement
-                    trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)
-                                                                            and state.has(str(all_warp_unlocks[2]), self.player)))
-                    warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Mallet Mash" and self.options.includegold:
-                    trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)))
-                    warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Dragon Drop":
-                    trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)))
-                    warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Swamp Fox":
-                    trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)))
-                    warp_5_region.locations.append(trophy_location)
-                elif minigame.gameName == "Keg Kaboom":
-                    trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame)
-                    set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
-                                                                            and state.has(Constants.GEM_ITEM_NAME, self.player, 25)))
-                    warp_5_region.locations.append(trophy_location)
+                for round in range(self.options.trophyrounds.value):
+                    if minigame.gameName == "Splash Dash" and self.options.includegold: # Splash Dash also has receiving Warp Room 3 as a requirement
+                        trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame, round + 1)
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
+                                                                                and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 17)
+                                                                                and state.has(str(all_warp_unlocks[2]), self.player)))
+                        warp_5_region.locations.append(trophy_location)
+                    elif minigame.gameName == "Dante's Dash" and self.options.includegold: # Dante's Dash also has receiving Warp Room 3 as a requirement
+                        trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame, round + 1)
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
+                                                                                and state.has(Constants.TROPHY_ITEM_NAME, self.player, 27)
+                                                                                and state.has(str(all_warp_unlocks[2]), self.player)))
+                        warp_5_region.locations.append(trophy_location)
+                    elif minigame.gameName == "Mallet Mash" and self.options.includegold:
+                        trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame, round + 1)
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
+                                                                                and state.has(Constants.GOLD_RELIC_ITEM_NAME, self.player, 21)))
+                        warp_5_region.locations.append(trophy_location)
+                    elif minigame.gameName == "Dragon Drop":
+                        trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame, round + 1)
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
+                                                                                and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 19)))
+                        warp_5_region.locations.append(trophy_location)
+                    elif minigame.gameName == "Swamp Fox":
+                        trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame, round + 1)
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
+                                                                                and state.has(Constants.CRYSTAL_ITEM_NAME, self.player, 23)))
+                        warp_5_region.locations.append(trophy_location)
+                    elif minigame.gameName == "Keg Kaboom":
+                        trophy_location: TrophyLocation = TrophyLocation(warp_5_region, self.player, minigame, round + 1)
+                        set_rule(trophy_location, (lambda state, t=trophy_location: state.has(str(all_warp_unlocks[4]), self.player)
+                                                                                and state.has(Constants.GEM_ITEM_NAME, self.player, 25)))
+                        warp_5_region.locations.append(trophy_location)
                 
 
                 if minigame.gameName == "Splash Dash" and self.options.includegold:
@@ -530,7 +535,29 @@ class CRASHBASHWorld(World):
         itempool.append(self.create_item(str(all_warp_unlocks[3])))
         itempool.append(self.create_item(str(all_warp_unlocks[4])))
 
-        # No filler right now
+        world_locations = self.multiworld.get_unfilled_locations(self.player)
+        filler_item_count = len(world_locations) - len(itempool)
+
+        # Create an even spread of minigame buff items
+        even_game_buffs = 0
+        for i in range(0, filler_item_count):
+            if even_game_buffs == 0:
+                itempool += [self.create_item(Constants.BALLISTIX_BUFF_NAME)]
+            elif even_game_buffs == 1:
+                itempool += [self.create_item(Constants.CRATE_CRUSH_BUFF_NAME)]
+            elif even_game_buffs == 2:
+                itempool += [self.create_item(Constants.POLAR_PUSH_BUFF_NAME)]
+            elif even_game_buffs == 3:
+                itempool += [self.create_item(Constants.POGO_PANDEMONIUM_BUFF_NAME)]
+            elif even_game_buffs == 4:
+                itempool += [self.create_item(Constants.TANK_WARS_BUFF_NAME)]
+            elif even_game_buffs == 5:
+                itempool += [self.create_item(Constants.CRASH_DASH_BUFF_NAME)]
+            elif even_game_buffs == 6:
+                itempool += [self.create_item(Constants.MEDIEVAL_MAYHEM_BUFF_NAME)]
+            else:
+                itempool += [self.create_item(Constants.BOSSES_BUFF_NAME)]
+            even_game_buffs = (even_game_buffs + 1) % 8
 
         self.multiworld.itempool.extend(itempool)
 

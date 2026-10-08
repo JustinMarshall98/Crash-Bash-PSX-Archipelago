@@ -3,6 +3,7 @@ import typing
 from BaseClasses import Item, ItemClassification
 from .utils import Constants
 from .warpunlocks import all_warp_unlocks
+from .minigamebuffs import all_minigame_buffs, name_to_minigame_buff
 
 item_id_to_item_name: typing.Dict[int, str] = {}
 
@@ -18,6 +19,15 @@ item_id_to_item_name[Constants.WARP_3_ITEM_ID] = str(all_warp_unlocks[2])
 item_id_to_item_name[Constants.WARP_4_ITEM_ID] = str(all_warp_unlocks[3])
 item_id_to_item_name[Constants.WARP_5_ITEM_ID] = str(all_warp_unlocks[4])
 
+item_id_to_item_name[Constants.BALLISTIX_BUFF_ID] = str(all_minigame_buffs[0])
+item_id_to_item_name[Constants.CRATE_CRUSH_BUFF_ID] = str(all_minigame_buffs[1])
+item_id_to_item_name[Constants.POLAR_PUSH_BUFF_ID] = str(all_minigame_buffs[2])
+item_id_to_item_name[Constants.POGO_PANDEMONIUM_BUFF_ID] = str(all_minigame_buffs[3])
+item_id_to_item_name[Constants.TANK_WARS_BUFF_ID] = str(all_minigame_buffs[4])
+item_id_to_item_name[Constants.CRASH_DASH_BUFF_ID] = str(all_minigame_buffs[5])
+item_id_to_item_name[Constants.MEDIEVAL_MAYHEM_BUFF_ID] = str(all_minigame_buffs[6])
+item_id_to_item_name[Constants.BOSSES_BUFF_ID] = str(all_minigame_buffs[7])
+
 item_id_to_item_name[Constants.VICTORY_ITEM_ID] = Constants.VICTORY_ITEM_NAME
 
 item_name_to_item_id: typing.Dict[str, int] = {value: key for key, value in item_id_to_item_name.items()}
@@ -26,7 +36,8 @@ class CRASHBASHItem(Item):
     game: str = Constants.GAME_NAME
 
 def create_item(name: str, player_id: int) -> CRASHBASHItem:
-    return CRASHBASHItem(name, ItemClassification.progression, item_name_to_item_id[name], player_id) # No filler right now
+    return CRASHBASHItem(name, ItemClassification.useful if (name in name_to_minigame_buff)
+                         else ItemClassification.progression, item_name_to_item_id[name], player_id) # No filler right now
 
 def create_victory_event(player_id: int) -> CRASHBASHItem:
     return CRASHBASHItem(Constants.VICTORY_ITEM_NAME, ItemClassification.progression, Constants.VICTORY_ITEM_ID, player_id)

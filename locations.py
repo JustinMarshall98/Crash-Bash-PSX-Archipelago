@@ -4,8 +4,8 @@ from BaseClasses import Location, Region, LocationProgressType, Item
 from .minigames import Minigame, all_minigames
 from .utils import Constants
 
-def get_location_name_for_trophy(minigame: Minigame) -> str:
-    return f"{minigame.gameName} Trophy Challenge"
+def get_location_name_for_trophy(minigame: Minigame, round: int) -> str:
+    return f"{minigame.gameName} Trophy Challenge Round {round}"
 
 def get_location_name_for_gem(minigame: Minigame) -> str:
     return f"{minigame.gameName} Gem Challenge"
@@ -22,8 +22,8 @@ def get_location_name_for_plat_relic(minigame: Minigame) -> str:
 def get_location_name_for_boss(minigame: Minigame) -> str:
     return f"{minigame.gameName} Boss Challenge"
 
-def get_location_id_for_trophy(minigame: Minigame) -> int:
-    return Constants.TROPHY_LOCATION_OFFSET + minigame.id
+def get_location_id_for_trophy(minigame: Minigame, round: int) -> int:
+    return Constants.TROPHY_LOCATION_OFFSET + (minigame.id * 1000) + round
 
 def get_location_id_for_gem(minigame: Minigame) -> int:
     return Constants.GEM_LOCATION_OFFSET + minigame.id
@@ -63,12 +63,14 @@ class CRASHBASHLocation(Location):
         item.location = self
 
 class TrophyLocation(CRASHBASHLocation):
-    # Check for a completed Trophy Challenge
+    # Check for a completed Trophy Challenge Round
     minigame: Minigame
+    round: int
 
-    def __init__(self, region: Region, player: int, minigame: Minigame):
-        super().__init__(region, player, get_location_name_for_trophy(minigame), get_location_id_for_trophy(minigame))
+    def __init__(self, region: Region, player: int, minigame: Minigame, round: int):
+        super().__init__(region, player, get_location_name_for_trophy(minigame, round), get_location_id_for_trophy(minigame, round))
         self.minigame = minigame
+        self.round = round
 
 class GemLocation(CRASHBASHLocation):
     # Check for a completed Gem Challenge
@@ -127,7 +129,8 @@ boss_location_name_to_id: typing.Dict[str, int] = {}
 victory_location_name_to_id: typing.Dict[str, int] = {}
 
 for minigame in all_minigames:
-    trophy_location_name_to_id[get_location_name_for_trophy(minigame)] = get_location_id_for_trophy(minigame)
+    for round in range(3):
+        trophy_location_name_to_id[get_location_name_for_trophy(minigame, round + 1)] = get_location_id_for_trophy(minigame, round + 1)
     gem_location_name_to_id[get_location_name_for_gem(minigame)] = get_location_id_for_gem(minigame)
     crystal_location_name_to_id[get_location_name_for_crystal(minigame)] = get_location_id_for_crystal(minigame)
     gold_relic_location_name_to_id[get_location_name_for_gold_relic(minigame)] = get_location_id_for_gold_relic(minigame)

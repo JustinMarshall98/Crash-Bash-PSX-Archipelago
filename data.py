@@ -11,7 +11,8 @@ ballistix: list[Minigame] = [
 ]
 ballistix_locations: list[str] = []
 for game in ballistix:
-    ballistix_locations.append(get_location_name_for_trophy(game))
+    for round in range(3):
+        ballistix_locations.append(get_location_name_for_trophy(game, round + 1))
     ballistix_locations.append(get_location_name_for_gem(game))
     ballistix_locations.append(get_location_name_for_crystal(game))
     ballistix_locations.append(get_location_name_for_gold_relic(game))
@@ -25,7 +26,8 @@ polar_push: list[Minigame] = [
 ]
 polar_push_locations: list[str] = []
 for game in polar_push:
-    polar_push_locations.append(get_location_name_for_trophy(game))
+    for round in range(3):
+        polar_push_locations.append(get_location_name_for_trophy(game, round + 1))
     polar_push_locations.append(get_location_name_for_gem(game))
     polar_push_locations.append(get_location_name_for_crystal(game))
     polar_push_locations.append(get_location_name_for_gold_relic(game))
@@ -39,7 +41,8 @@ pogo_pandemonium: list[Minigame] = [
 ]
 pogo_pandemonium_locations: list[str] = []
 for game in pogo_pandemonium:
-    pogo_pandemonium_locations.append(get_location_name_for_trophy(game))
+    for round in range(3):
+        pogo_pandemonium_locations.append(get_location_name_for_trophy(game, round + 1))
     pogo_pandemonium_locations.append(get_location_name_for_gem(game))
     pogo_pandemonium_locations.append(get_location_name_for_crystal(game))
     pogo_pandemonium_locations.append(get_location_name_for_gold_relic(game))
@@ -53,7 +56,8 @@ crate_crush: list[Minigame] = [
 ]
 crate_crush_locations: list[str] = []
 for game in crate_crush:
-    crate_crush_locations.append(get_location_name_for_trophy(game))
+    for round in range(3):
+        crate_crush_locations.append(get_location_name_for_trophy(game, round + 1))
     crate_crush_locations.append(get_location_name_for_gem(game))
     crate_crush_locations.append(get_location_name_for_crystal(game))
     crate_crush_locations.append(get_location_name_for_gold_relic(game))
@@ -67,7 +71,8 @@ tank_wars: list[Minigame] = [
 ]
 tank_wars_locations: list[str] = []
 for game in tank_wars:
-    tank_wars_locations.append(get_location_name_for_trophy(game))
+    for round in range(3):
+        tank_wars_locations.append(get_location_name_for_trophy(game, round + 1))
     tank_wars_locations.append(get_location_name_for_gem(game))
     tank_wars_locations.append(get_location_name_for_crystal(game))
     tank_wars_locations.append(get_location_name_for_gold_relic(game))
@@ -81,7 +86,8 @@ crash_dash: list[Minigame] = [
 ]
 crash_dash_locations: list[str] = []
 for game in crash_dash:
-    crash_dash_locations.append(get_location_name_for_trophy(game))
+    for round in range(3):
+        crash_dash_locations.append(get_location_name_for_trophy(game, round + 1))
     crash_dash_locations.append(get_location_name_for_gem(game))
     crash_dash_locations.append(get_location_name_for_crystal(game))
     crash_dash_locations.append(get_location_name_for_gold_relic(game))
@@ -95,7 +101,8 @@ medieval_mayhem: list[Minigame] = [
 ]
 medieval_mayhem_locations: list[str] = []
 for game in medieval_mayhem:
-    medieval_mayhem_locations.append(get_location_name_for_trophy(game))
+    for round in range(3):
+        medieval_mayhem_locations.append(get_location_name_for_trophy(game, round + 1))
     medieval_mayhem_locations.append(get_location_name_for_gem(game))
     medieval_mayhem_locations.append(get_location_name_for_crystal(game))
     medieval_mayhem_locations.append(get_location_name_for_gold_relic(game))
@@ -123,7 +130,8 @@ warp_1: list[Minigame] = [
 warp_1_locations: list[str] = []
 for game in warp_1:
     if not game.isBoss:
-        warp_1_locations.append(get_location_name_for_trophy(game))
+        for round in range(3):
+            warp_1_locations.append(get_location_name_for_trophy(game, round + 1))
         warp_1_locations.append(get_location_name_for_gem(game))
         warp_1_locations.append(get_location_name_for_crystal(game))
         warp_1_locations.append(get_location_name_for_gold_relic(game))
@@ -142,7 +150,8 @@ warp_2: list[Minigame] = [
 warp_2_locations: list[str] = []
 for game in warp_2:
     if not game.isBoss:
-        warp_2_locations.append(get_location_name_for_trophy(game))
+        for round in range(3):
+            warp_2_locations.append(get_location_name_for_trophy(game, round + 1))
         warp_2_locations.append(get_location_name_for_gem(game))
         warp_2_locations.append(get_location_name_for_crystal(game))
         warp_2_locations.append(get_location_name_for_gold_relic(game))
@@ -162,7 +171,8 @@ warp_3: list[Minigame] = [
 warp_3_locations: list[str] = []
 for game in warp_3:
     if not game.isBoss:
-        warp_3_locations.append(get_location_name_for_trophy(game))
+        for round in range(3):
+            warp_3_locations.append(get_location_name_for_trophy(game, round + 1))
         warp_3_locations.append(get_location_name_for_gem(game))
         warp_3_locations.append(get_location_name_for_crystal(game))
         warp_3_locations.append(get_location_name_for_gold_relic(game))
@@ -183,7 +193,8 @@ warp_4: list[Minigame] = [
 warp_4_locations: list[str] = []
 for game in warp_4:
     if not game.isBoss:
-        warp_4_locations.append(get_location_name_for_trophy(game))
+        for round in range(3):
+            warp_4_locations.append(get_location_name_for_trophy(game, round + 1))
         warp_4_locations.append(get_location_name_for_gem(game))
         warp_4_locations.append(get_location_name_for_crystal(game))
         warp_4_locations.append(get_location_name_for_gold_relic(game))
@@ -202,7 +213,8 @@ warp_5: list[Minigame] = [
 warp_5_locations: list[str] = []
 for game in warp_5:
     if not game.isBoss:
-        warp_5_locations.append(get_location_name_for_trophy(game))
+        for round in range(3):
+            warp_5_locations.append(get_location_name_for_trophy(game, round + 1))
         warp_5_locations.append(get_location_name_for_gem(game))
         warp_5_locations.append(get_location_name_for_crystal(game))
         warp_5_locations.append(get_location_name_for_gold_relic(game))
@@ -216,7 +228,8 @@ for game in warp_5:
 #Trophies
 trophy_locations: list[str] = []
 for game in all_minigames:
-    trophy_locations.append(get_location_name_for_trophy(game))
+    for round in range(3):
+        trophy_locations.append(get_location_name_for_trophy(game, round + 1))
 
 #Gems
 gem_locations: list[str] = []

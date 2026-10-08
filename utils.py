@@ -44,12 +44,28 @@ class Constants:
     CRYSTAL_ITEM_ID: int = 0x09
     GOLD_RELIC_ITEM_ID: int = 0x0A
     PLAT_RELIC_ITEM_ID: int = 0x0B
+    BALLISTIX_BUFF_ID: int = 0x10
+    CRATE_CRUSH_BUFF_ID: int = 0x11
+    POLAR_PUSH_BUFF_ID: int = 0x12
+    POGO_PANDEMONIUM_BUFF_ID: int = 0x13
+    TANK_WARS_BUFF_ID: int = 0x14
+    MEDIEVAL_MAYHEM_BUFF_ID: int = 0x15
+    CRASH_DASH_BUFF_ID: int = 0x16
+    BOSSES_BUFF_ID: int = 0x17
 
     TROPHY_ITEM_NAME: str = "Trophy"
     GEM_ITEM_NAME: str = "Gem"
     CRYSTAL_ITEM_NAME: str = "Crystal"
     GOLD_RELIC_ITEM_NAME: str = "Gold Relic"
     PLAT_RELIC_ITEM_NAME: str = "Platinum Relic"
+    BALLISTIX_BUFF_NAME: str = "Progressive Ballistix Buff"
+    CRATE_CRUSH_BUFF_NAME: str = "Progressive Crate Crush Buff"
+    POLAR_PUSH_BUFF_NAME: str = "Progressive Polar Push Buff"
+    POGO_PANDEMONIUM_BUFF_NAME: str = "Progressive Pogo Pandemonium Buff"
+    TANK_WARS_BUFF_NAME: str = "Progressive Tank Wars Buff"
+    MEDIEVAL_MAYHEM_BUFF_NAME: str = "Progressive Medieval Mayhem Buff"
+    CRASH_DASH_BUFF_NAME: str = "Progressive Crash Dash Buff"
+    BOSSES_BUFF_NAME: str = "Progressive Bosses Buff"
 
     TROPHY_ROUNDS_ROM_OFFSET: int = 0x5052FFC
 
